@@ -461,11 +461,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01074393845e89d4dba6a3c029b8d50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  AllEvents:
-  - InputName: 
-    InputEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  AllEvents: []
+  playerMovement:
+    m_Name: Player Movement
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2b4fb21d-3ada-4af9-81ab-21df6e331195
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  interactable:
+    m_Name: Interactable
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: aadb82f3-3b20-4070-b6dd-690592869fed
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  pause:
+    m_Name: Pause
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: baa9c12b-34cb-4f29-851e-20ebfc3608c6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!4 &1171590495
 Transform:
   m_ObjectHideFlags: 0
@@ -519,5 +542,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1379286626}
-  - {fileID: 1171590495}
   - {fileID: 330585546}
+  - {fileID: 1171590495}
