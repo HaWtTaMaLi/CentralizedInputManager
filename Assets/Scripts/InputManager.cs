@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [Serializable]
 public class InputEvents
@@ -10,7 +11,7 @@ public class InputEvents
     public UnityEvent InputEvent;
 }
 
-    //all input actions go here and other scripts can subscribe to them
+//all input actions go here and other scripts can subscribe to them
 
 public class InputManager : MonoBehaviour
 {
@@ -20,38 +21,32 @@ public class InputManager : MonoBehaviour
     public static Action onInteract; //InteractableObject
     public static Action onPause; //UIManager
 
-    public InputAction playerMovement;
-    public InputAction interactable;
-    public InputAction pause;
+    public Vector2 playerMovement;
+    public Button interactable;
+    public Button pause;
 
     public void Start()
     {
+        //input actions go in this script 
+        //the speed and other details go in the other 
 
         //playerMovement.performed.AddListener(() => AllEvents[1].InputEvent.Invoke());
         //or something like this
+
     }
 
-    public void OnMove()
+    public void Move()
     {
-        if (onMove != null)
-        {
-            onMove.Invoke();
-        }
-    }
-    public void OnInteract()
-    {
-        if (onInteract != null)
-        {
-            onInteract.Invoke();
-        }
+
     }
 
-    public void OnPause()
+    public void Interact()
     {
-        if (onPause != null)
-        {
-            onPause.Invoke();
-        }
+
     }
 
+    public void Pause()
+    {
+
+    }
 }
