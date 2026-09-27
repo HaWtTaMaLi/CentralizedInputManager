@@ -1,52 +1,41 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
-[Serializable]
-public class InputEvents
+[CreateAssetMenu(fileName = "InputManager", menuName = "InputManager")]
+
+public class InputManager : ScriptableObject, InputSystem.IPlayerActions
 {
-    public string InputName;
-    public UnityEvent InputEvent;
-}
+    private InputSystem _inputSystem;
 
-//all input actions go here and other scripts can subscribe to them
+    public event Action<Vector2> OnMoved;
+    public event Action<Vector2> OnLooked;
+    public event Action OnJumped;
 
-public class InputManager : MonoBehaviour
-{
-    public InputEvents[] AllEvents;
+    public Vector2 Direction => _inputSystem.Player.Move.ReadValue<Vector2>();
+    public Vector2 LookDelta => _inputSystem.Player.Look.ReadValue<Vector2>();
 
-    public static Action onMove; //PlayerManager
-    public static Action onInteract; //InteractableObject
-    public static Action onPause; //UIManager
+    public bool IsJumpPressed => _inputSystem.Player.Jump.IsPressed();
 
-    public Vector2 playerMovement;
-    public Button interactable;
-    public Button pause;
 
-    public void Start()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        //input actions go in this script 
-        //the speed and other details go in the other 
-
-        //playerMovement.performed.AddListener(() => AllEvents[1].InputEvent.Invoke());
-        //or something like this
-
+        OnMoved?.Invoke(context.ReadValue<Vector2>());
+    }
+    
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        OnLooked?.Invoke(context.ReadValue<Vector2>());
     }
 
-    public void Move()
+    public void OnJump(InputAction.CallbackContext context)
     {
-
+        if (context.phase == InputActionPhase.Performed) OnJumped?.Invoke();
     }
-
-    public void Interact()
+    private void EnsureInputSystemWasCreated()
     {
-
-    }
-
-    public void Pause()
-    {
-
+        if (_inputSystem == null) return;
+        _inputSystem = new InputSystem();
+        _inputSystem.Player.SetCallbacks(this);
     }
 }
