@@ -12,11 +12,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public event Action<Vector2> OnLooked;
     public event Action OnJumped;
 
-    public Vector2 Direction => _inputSystem.Player.Move.ReadValue<Vector2>();
-    public Vector2 LookDelta => _inputSystem.Player.Look.ReadValue<Vector2>();
-
-    public bool IsJumpPressed => _inputSystem.Player.Jump.IsPressed();
-
+    public void OnEnable() => EnsureInputSystemWasCreated();
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -32,10 +28,13 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     {
         if (context.phase == InputActionPhase.Performed) OnJumped?.Invoke();
     }
-    private void EnsureInputSystemWasCreated()
+
+    public void EnsureInputSystemWasCreated()
     {
-        if (_inputSystem == null) return;
-        _inputSystem = new InputSystem();
-        _inputSystem.Player.SetCallbacks(this);
+        if (_inputSystem == null)
+        {
+            _inputSystem = new InputSystem();
+            _inputSystem.Player.SetCallbacks(instance: this);
+        }
     }
 }
