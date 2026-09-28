@@ -19,17 +19,20 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable() => _inputManager.OnJumped -= HandleJump;
 
     public void HandleJump()
-    { 
+    {
         //jump
+        Debug.Log("Jumpping");
     }
 
     public void HandleMove()
     {
         //move
+        Debug.Log("Moving");
     }
 
     public void HandleLook()
     {
         //look
+        Debug.Log("Looking");
     }
 }
