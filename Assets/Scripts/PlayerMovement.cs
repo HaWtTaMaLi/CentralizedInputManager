@@ -14,9 +14,22 @@ public class PlayerMovement : MonoBehaviour
         playerController = GetComponent<CharacterController>();
     }
 
-    public void OnEnable() => _inputManager.OnJumped += HandleJump;
+    public void OnEnable()
+    {
+       //Debug.Log("PlayerMovement subscribed to Jump");
+        _inputManager.OnJumped += HandleJump;
+        _inputManager.OnMoved += HandleMove;
+        _inputManager.OnLooked += HandleLook;
+    }
 
-    private void OnDisable() => _inputManager.OnJumped -= HandleJump;
+    private void OnDisable()
+    {
+        //Debug.Log("PlayerMovement unsubscribed to Jump");
+        _inputManager.OnJumped -= HandleJump;
+        _inputManager.OnMoved -= HandleMove;
+        _inputManager.OnLooked -= HandleLook;
+
+    }
 
     public void HandleJump()
     {
@@ -24,13 +37,13 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Jumpping");
     }
 
-    public void HandleMove()
+    public void HandleMove(Vector2 movement)
     {
         //move
         Debug.Log("Moving");
     }
 
-    public void HandleLook()
+    public void HandleLook(Vector2 lookDirection)
     {
         //look
         Debug.Log("Looking");

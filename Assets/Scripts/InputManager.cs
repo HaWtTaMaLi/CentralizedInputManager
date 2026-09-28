@@ -14,22 +14,32 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
 
     public void OnEnable() => EnsureInputSystemWasCreated();
 
+    public void OnDisable() => _inputSystem?.Player.Disable(); // disable input that was enabled in EnsureInputSystemWasCreated
+
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("InputManager recived Move");
+        //Debug.Log("InputManager recived Move"); //Works
+
         OnMoved?.Invoke(context.ReadValue<Vector2>());
     }
     
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log("InputManager recived Look");
+        //Debug.Log("InputManager recived Look"); //Works
+
         OnLooked?.Invoke(context.ReadValue<Vector2>());
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        Debug.Log("InputManager recived Jump");
-        if (context.phase == InputActionPhase.Performed) OnJumped?.Invoke();
+        //Debug.Log("InputManager recived Jump"); //Works
+
+        if (context.phase == InputActionPhase.Performed)
+        {
+            //Debug.Log("Invoking OnJumped"); //Works
+
+            OnJumped?.Invoke();
+        }
     }
 
     public void EnsureInputSystemWasCreated()
@@ -38,7 +48,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
         {
             _inputSystem = new InputSystem();
             _inputSystem.Player.SetCallbacks(instance: this);
-            _inputSystem.Player.Enable();
+            _inputSystem.Player.Enable(); //needed this enabled to work inside of PlayerMovement
         }
     }
 }
