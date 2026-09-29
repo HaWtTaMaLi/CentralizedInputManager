@@ -7,11 +7,16 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 3f;
     public float rotateSpeed = 1f;
+    public float gravity = -9.81f; //defaut gravity 
+    public float velocity;
+    public float gravityMultiplier = 3;
     public Vector2 currentMovement; //to track current input for update functions
     public Vector2 currentDirection; //to track current input fo update functions
     public CharacterController playerController;
 
     public Transform cameraObject; 
+
+    //so far best controlls ive ever put together!
 
     private void Awake() 
     { 
@@ -34,15 +39,17 @@ public class PlayerMovement : MonoBehaviour
         _inputManager.OnLooked -= HandleLook;
 
     }
+
     public void Update()
     {
         #region HandleMove
-        //i could totally make this a method but i dont wanna lol, jk ill do it later
 
         //make movement a vector3
         Vector3 playermovement =
             (transform.right * currentMovement.x + transform.forward * currentMovement.y) * moveSpeed * Time.deltaTime; 
         //x.left/right, y.up/down, z.forward/back
+
+        playermovement.y = velocity * Time.deltaTime;
 
         playerController.Move(playermovement);
         #endregion
@@ -55,15 +62,35 @@ public class PlayerMovement : MonoBehaviour
         //so now i can see where im going
         #endregion
 
-        //add new region for gravity and velocity?
-    }
+        #region HandleGravity & Velocity
 
-    //so far best controlls ive ever put together!
+        if (playerController.isGrounded)
+        {
+            velocity = 0;
+        }
+        else
+        {
+            velocity = velocity + (gravity * Time.deltaTime);
+        }
+        //my velocity keeps jumping between negative and and 0
+        #endregion
+    }
 
     public void HandleJump()
     {
         //jump
         //Debug.Log("Jumping");
+        //if the player is already on the ground we can jump
+        if (playerController.isGrounded)
+        {
+            Debug.Log("Jump velocity before = " + velocity);
+
+            //player go up
+            velocity = velocity + jumpForce;
+
+            Debug.Log("Jump velocity after = " + velocity);
+        }
+
     }
 
     public void HandleMove(Vector2 movement)
