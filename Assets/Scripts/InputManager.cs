@@ -19,7 +19,10 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public void OnMove(InputAction.CallbackContext context)
     {
         //Debug.Log("InputManager recived Move"); //Works
-
+        //Debug.Log(context); //used this to check if readvalue was getting -
+        //- the phase "cancelled" to make sure i dont need to add any extra -
+        //- inputs, it does say "cancelled"
+        
         OnMoved?.Invoke(context.ReadValue<Vector2>());
     }
     
