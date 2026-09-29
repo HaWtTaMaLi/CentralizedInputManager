@@ -5,8 +5,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputManager _inputManager;
 
     public float moveSpeed = 5f;
-    public float jumpSpeed = 3f;
-    public float lookSpeed = 1f;
+    public float jumpForce = 3f;
+    public float rotateSpeed = 1f;
     public Vector2 currentMovement; //to track current input for update functions
     public Vector2 currentDirection; //to track current input fo update functions
     public CharacterController playerController;
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public void Update()
     {
         #region HandleMove
-        //i could totally make this a method but i dont wanna lol 
+        //i could totally make this a method but i dont wanna lol, jk ill do it later
 
         //make movement a vector3
         Vector3 playermovement =
@@ -50,11 +50,15 @@ public class PlayerMovement : MonoBehaviour
         #region HandleLook
 
         //im looking around but not looking where im going
-        transform.Rotate(0, currentDirection.x * lookSpeed, 0);
+        transform.Rotate(0, currentDirection.x * rotateSpeed, 0);
         //added Transform.right and transform.forward to my playermovement
         //so now i can see where im going
         #endregion
+
+        //add new region for gravity and velocity?
     }
+
+    //so far best controlls ive ever put together!
 
     public void HandleJump()
     {
