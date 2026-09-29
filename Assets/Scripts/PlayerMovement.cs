@@ -64,12 +64,15 @@ public class PlayerMovement : MonoBehaviour
 
         #region HandleGravity & Velocity
 
-        if (playerController.isGrounded)
+        if (playerController.isGrounded && velocity <= 0)
         {
+            //Debug.Log("Update Velocity to 0");
+            Debug.Log("Grounded "+velocity);
             velocity = 0;
         }
         else
         {
+            Debug.Log("AirBorn"+velocity);
             velocity = velocity + (gravity * Time.deltaTime);
         }
         //my velocity keeps jumping between negative and and 0
