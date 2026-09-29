@@ -5,14 +5,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputManager _inputManager;
 
     public float moveSpeed = 5f;
-    public float jumpForce = 3f;
+    public float jumpForce = 4f;
     public float rotateSpeed = 1f;
     public float gravity = -9.81f; //defaut gravity 
     public float velocity;
-    public float gravityMultiplier = 3;
     public Vector2 currentMovement; //to track current input for update functions
     public Vector2 currentDirection; //to track current input fo update functions
     public CharacterController playerController;
+    public bool isJumping;
+    private bool jumpRequested;
 
     public Transform cameraObject; 
 
@@ -42,58 +43,86 @@ public class PlayerMovement : MonoBehaviour
 
     public void Update()
     {
-        #region HandleMove
-
         //make movement a vector3
         Vector3 playermovement =
-            (transform.right * currentMovement.x + transform.forward * currentMovement.y) * moveSpeed * Time.deltaTime; 
-        //x.left/right, y.up/down, z.forward/back
+            (transform.right * currentMovement.x + transform.forward * currentMovement.y) 
+            * moveSpeed * Time.deltaTime; 
+            //x.left/right, y.up/down, z.forward/back
+
+
+
+
+        if (playerController.isGrounded == true)
+        {
+            isJumping = false;
+
+            //Debug.Log("Update Velocity to 0");
+            //Debug.Log("Grounded "+velocity);
+            //velocity = 0;
+
+            //// Keep the controller slightly attached to the ground.
+            //if (velocity <= 0.0f)
+            //    velocity = -2.0f;
+
+            if (jumpRequested)
+            {
+                isJumping = true;
+                //Debug.Log("Jump velocity before = " + velocity);
+                //player go up
+                velocity = jumpForce;
+
+                //Debug.Log("Jump velocity after = " + velocity);
+
+                jumpRequested = false;
+            }
+
+        }
+        else
+        {
+            velocity = velocity + (gravity * Time.deltaTime);
+
+        }
+
+
 
         playermovement.y = velocity * Time.deltaTime;
 
         playerController.Move(playermovement);
-        #endregion
-
-        #region HandleLook
 
         //im looking around but not looking where im going
         transform.Rotate(0, currentDirection.x * rotateSpeed, 0);
         //added Transform.right and transform.forward to my playermovement
         //so now i can see where im going
-        #endregion
 
-        #region HandleGravity & Velocity
 
-        if (playerController.isGrounded && velocity <= 0)
-        {
-            //Debug.Log("Update Velocity to 0");
-            Debug.Log("Grounded "+velocity);
-            velocity = 0;
-        }
-        else
-        {
-            Debug.Log("AirBorn"+velocity);
-            velocity = velocity + (gravity * Time.deltaTime);
-        }
+
+
+        //Debug.Log("AirBorn"+velocity);
+        //velocity jumps less if i remove it from the else part of the if statment?
+
         //my velocity keeps jumping between negative and and 0
-        #endregion
     }
 
     public void HandleJump()
     {
-        //jump
-        //Debug.Log("Jumping");
-        //if the player is already on the ground we can jump
-        if (playerController.isGrounded)
-        {
-            Debug.Log("Jump velocity before = " + velocity);
+        jumpRequested = true;
 
-            //player go up
-            velocity = velocity + jumpForce;
+        ////jump
+        ////Debug.Log("Jumping");
+        ////if the player is already on the ground we can jump
+        //if (playerController.isGrounded == true)
+        //{
+        //    isJumping = true;
+        //    //Debug.Log("Jump velocity before = " + velocity);
+        //    //player go up
+        //    velocity = velocity + jumpForce;
 
-            Debug.Log("Jump velocity after = " + velocity);
-        }
-
+        //    //Debug.Log("Jump velocity after = " + velocity);
+        //}
+        //else
+        //{
+        //    isJumping = false;
+        //}
     }
 
     public void HandleMove(Vector2 movement)
