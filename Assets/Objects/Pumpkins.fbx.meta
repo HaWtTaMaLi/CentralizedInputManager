@@ -3,7 +3,32 @@ guid: dcda8c785df480f4698f6b1a435d53fb
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 8f502319b20a5504db7f23a84d6d1047, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: d323fb37ad13b324186b491e8d364a2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpkinInner
+    second: {fileID: 2100000, guid: 3e971a383b713c747b9a9060a253b406, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PumpkinSkin
+    second: {fileID: 2100000, guid: 6ed35dc4cc0251e4eb6aec7124d4a1a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stem
+    second: {fileID: 2100000, guid: e28591079276e4645b2d8947262d28d6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
