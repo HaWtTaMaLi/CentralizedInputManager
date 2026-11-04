@@ -2405,7 +2405,8 @@ MonoBehaviour:
   currentDirection: {x: 0, y: 0}
   playerController: {fileID: 1550735417}
   isJumping: 0
-  cameraObject: {fileID: 330585546}
+  playerCamera: {fileID: 330585546}
+  interactionDistance: 6
 --- !u!143 &1550735417
 CharacterController:
   m_ObjectHideFlags: 0

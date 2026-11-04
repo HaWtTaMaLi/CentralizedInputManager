@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InteractionManager", menuName = "Scriptable Objects/InteractionManager")]
-public class InteractionManager : ScriptableObject
+public class InteractionManager : ScriptableObject, IInteractable
 {
     [SerializeField] private InputManager _inputManager;
     public float distance = 5;
@@ -19,12 +19,19 @@ public class InteractionManager : ScriptableObject
 
     public void HandleInteraction()
     {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, distance, targetLayer))
+        //Debug.Log("InteractionManager received Interact");
+        if(UIManager.Instance.interactCanvas.enabled == true)
         {
-            Debug.Log("Raycast hit: " + hit.collider.name);
-
+            UIManager.Instance.enabled = false;
         }
+        else
+        {
+            UIManager.Instance.enabled = true;
+        }
+    }
+
+    public void Interact()
+    {
+        HandleInteraction();
     }
 }

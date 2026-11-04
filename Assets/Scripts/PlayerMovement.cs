@@ -15,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     private bool jumpRequested;
 
-    public Transform cameraObject; 
+    public Transform playerCamera;
+    public float interactionDistance = 6;
 
     //so far best controlls ive ever put together!
 
@@ -90,6 +91,26 @@ public class PlayerMovement : MonoBehaviour
         //velocity jumps less if i remove it from the else part of the if statment?
 
         //my velocity keeps jumping between negative and and 0
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            RayCheck();
+        }
+    }
+
+    public void RayCheck()
+    {
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, interactionDistance))
+        {
+            //debug.log();
+            if (hit.collider.TryGetComponent<IInteractable>(out IInteractable interactable))
+            {
+                interactable.Interact();
+            }
+        }
     }
 
     public void HandleJump()
