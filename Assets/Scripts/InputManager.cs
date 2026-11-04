@@ -11,6 +11,7 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
     public event Action<Vector2> OnMoved;
     public event Action<Vector2> OnLooked;
     public event Action OnJumped;
+    public event Action OnInteracted;
 
     public void OnEnable() => EnsureInputSystemWasCreated();
 
@@ -42,6 +43,16 @@ public class InputManager : ScriptableObject, InputSystem.IPlayerActions
             //Debug.Log("Invoking OnJumped"); //Works
 
             OnJumped?.Invoke();
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            //Debug.Log("Invoking OnInteract"); //Works
+
+            OnInteracted?.Invoke();
         }
     }
 

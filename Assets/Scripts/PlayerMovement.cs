@@ -38,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
         _inputManager.OnJumped -= HandleJump;
         _inputManager.OnMoved -= HandleMove;
         _inputManager.OnLooked -= HandleLook;
-
     }
 
     public void Update()
@@ -48,9 +47,6 @@ public class PlayerMovement : MonoBehaviour
             (transform.right * currentMovement.x + transform.forward * currentMovement.y) 
             * moveSpeed * Time.deltaTime; 
             //x.left/right, y.up/down, z.forward/back
-
-
-
 
         if (playerController.isGrounded == true)
         {
@@ -75,15 +71,11 @@ public class PlayerMovement : MonoBehaviour
 
                 jumpRequested = false;
             }
-
         }
         else
         {
             velocity = velocity + (gravity * Time.deltaTime);
-
         }
-
-
 
         playermovement.y = velocity * Time.deltaTime;
 
@@ -93,9 +85,6 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(0, currentDirection.x * rotateSpeed, 0);
         //added Transform.right and transform.forward to my playermovement
         //so now i can see where im going
-
-
-
 
         //Debug.Log("AirBorn"+velocity);
         //velocity jumps less if i remove it from the else part of the if statment?
