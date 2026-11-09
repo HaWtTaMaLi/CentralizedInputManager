@@ -5,7 +5,6 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //Canvases
-    public Canvas interactCanvas;
 
     public void Awake()
     {
@@ -23,11 +22,11 @@ public class UIManager : MonoBehaviour
     //Canvas Actions
     public void ShowInteractCanvas()
     {
-        interactCanvas.enabled = true;
+
     }
 
     public void HideAllCanvases()
     {
-        interactCanvas.enabled = false;
+
     }
 }

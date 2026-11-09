@@ -15,9 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping;
     private bool jumpRequested;
 
-    public Transform playerCamera;
-    public float interactionDistance = 6;
-
     //so far best controlls ive ever put together!
 
     private void Awake() 
@@ -92,25 +89,6 @@ public class PlayerMovement : MonoBehaviour
 
         //my velocity keeps jumping between negative and and 0
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            RayCheck();
-        }
-    }
-
-    public void RayCheck()
-    {
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        RaycastHit hit;
-
-        if(Physics.Raycast(ray, out hit, interactionDistance))
-        {
-            //debug.log();
-            if (hit.collider.TryGetComponent<IInteractable>(out IInteractable interactable))
-            {
-                interactable.Interact();
-            }
-        }
     }
 
     public void HandleJump()
