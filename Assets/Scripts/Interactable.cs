@@ -12,17 +12,10 @@ public interface IInteractable
 public class Interactable : MonoBehaviour, IInteractable
 {
     public static Interactable Instance;
-
     //
     [SerializeField] private string displayName = "Interact";
     [SerializeField] private UnityEvent onInteract;
     private Outline outline;
-
-    //
-    [SerializeField] private InputManager _inputManager;
-
-    public void OnEnable() => _inputManager.OnInteracted += Interact;
-    public void OnDisable() => _inputManager.OnInteracted -= Interact;
 
     //
     public string DisplayName => displayName;

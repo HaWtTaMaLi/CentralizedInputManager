@@ -1954,6 +1954,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1888970697}
     m_Modifications:
     - target: {fileID: 2262420637163820098, guid: b430129911d57534cb38d8440c772ec0, type: 3}
+      propertyPath: isEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262420637163820098, guid: b430129911d57534cb38d8440c772ec0, type: 3}
       propertyPath: displayName
       value: Door
       objectReference: {fileID: 0}
@@ -1964,6 +1968,10 @@ PrefabInstance:
     - target: {fileID: 2262420637163820098, guid: b430129911d57534cb38d8440c772ec0, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369028745637181343, guid: b430129911d57534cb38d8440c772ec0, type: 3}
+      propertyPath: rotationAmount
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7161965441751087574, guid: b430129911d57534cb38d8440c772ec0, type: 3}
       propertyPath: m_LocalPosition.x

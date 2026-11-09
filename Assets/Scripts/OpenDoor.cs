@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OpenDoor : MonoBehaviour, IInteractable
 {
@@ -130,12 +131,15 @@ public class OpenDoor : MonoBehaviour, IInteractable
     {
         //can use to set up automatic doors
         isEnabled = true;
+        Interactable.Instance.InRange();
         //Debug.Log("In Range " + CanInteract);
     }
     public void OutofRange()
     {
 
         isEnabled = false;
+        Interactable.Instance.OutofRange();
+
         //Debug.Log("Out Of Range " + CanInteract);
     }
 }
