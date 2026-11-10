@@ -4,30 +4,32 @@ using UnityEngine;
 public class OpenDoor : MonoBehaviour, IInteractable
 {
     //
-    public float rotationAmount = 90;
-    public float rotationSpeed = 1;
-    public float forwardDirection = 0;
-    //
+    public bool CanInteract() => canInteract;
+    private float rotationAmount = 90;
+    private float rotationSpeed = 1;
+    private float forwardDirection = 0;
+    private Outline outline;
+    public Coroutine AnimationCoroutine;
+    private Vector3 startRotation;
+    private Vector3 forward;
+
+    [SerializeField] private bool canInteract = false;
     public bool isOpen = false;
     private bool isRotating = true;
-    //
-    public Coroutine AnimationCoroutine;
-    public Vector3 startRotation;
-    public Vector3 forward;
-    public Outline outline;
-
-    //
-    [SerializeField] private bool canInteract = false;
-    public bool CanInteract() => canInteract;
-    //
-    [SerializeField] private InputManager _inputManager;
-    public void OnEnable() => _inputManager.OnInteracted += Interact;
-    public void OnDisable() => _inputManager.OnInteracted -= Interact;
 
     public void Awake()
     {
         startRotation = transform.rotation.eulerAngles;
         forward = transform.forward;
+
+        //Set the outline component to the object
+        outline = gameObject.AddComponent<Outline>();
+        //Initialize the outline component
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineColor = Color.white;
+        outline.OutlineWidth = 3f;
+        //Disable the outline component on Awake
+        outline.enabled = false;
     }
 
     public IEnumerator DoRotationOpen(float forwardAmount)
@@ -127,16 +129,14 @@ public class OpenDoor : MonoBehaviour, IInteractable
             Debug.Log("Can't Interact");
         }
     }
-
     public void InRange()
     {
-        Debug.Log("Can Interact with door = " + canInteract);
+        outline.enabled = true;
         canInteract = true;
     }
     public void OutofRange()
     {
-
-        Debug.Log("Can Interact with door = " + canInteract);
+        outline.enabled = false;
         canInteract = false;
     }
 }

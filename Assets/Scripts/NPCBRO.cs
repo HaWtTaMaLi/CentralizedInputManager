@@ -1,25 +1,44 @@
+using TMPro;
 using UnityEngine;
 
 public class NPCBRO : MonoBehaviour, IInteractable
 {
-    public GameObject npcbro;
-    //
-    [SerializeField] private InputManager _inputManager;
-    [SerializeField] private bool canInteract = false;
-    public Outline outline;
-
     public bool CanInteract() => canInteract;
+    public GameObject npcbro;
+    private Outline outline;
+    public TMP_Text broCountText;
+    public int broCount = 0;
 
-    public void OnEnable() => _inputManager.OnInteracted += Interact;
-    public void OnDisable() => _inputManager.OnInteracted -= Interact;
+    public bool isBro = true;
+    [SerializeField] private bool canInteract = false;
 
+    public void Awake()
+    {
+        //Set the outline component to the object
+        outline = gameObject.AddComponent<Outline>();
+        //Initialize the outline component
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineColor = Color.white;
+        outline.OutlineWidth = 3f;
+        //Disable the outline component on Awake
+        outline.enabled = false;
+    }
     public void InteractWithNPCBro()
     {
         Debug.Log("Interacted with NPC Bro");
-        if (canInteract)
+
+        if (isBro)
         {
-            Destroy(npcbro);
-            //+1 UI + text?
+            isBro = false;
+            broCount++;
+            broCountText.text = broCount.ToString();
+            UIManager.Instance.countCanva.enabled = true;
+            npcbro.SetActive(false);
+        }
+        else
+        {
+            isBro = true;
+            npcbro.SetActive(true);
         }
     }
 
@@ -37,18 +56,12 @@ public class NPCBRO : MonoBehaviour, IInteractable
 
     public void InRange()
     {
-        Debug.Log("Can Interact with Bro = " + canInteract);
-        //outline.enabled = true;
+        outline.enabled = true;
         canInteract = true;
-        //Interactable.Instance.InRange();
     }
     public void OutofRange()
     {
-        Debug.Log("Can Interact  with bro = " + canInteract);
-
-        //outline.enabled = false;
+        outline.enabled = false;
         canInteract = false;
-        //Interactable.Instance.OutofRange();
     }
-
 }

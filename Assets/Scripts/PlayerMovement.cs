@@ -7,8 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 4f;
     public float rotateSpeed = 1f;
-    public float gravity = -9.81f; //defaut gravity 
-    public float velocity;
+    private float gravity = -9.81f; //defaut gravity 
+    private float velocity;
     public Vector2 currentMovement; //to track current input for update functions
     public Vector2 currentDirection; //to track current input fo update functions
     public CharacterController playerController;

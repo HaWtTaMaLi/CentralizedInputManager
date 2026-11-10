@@ -8,8 +8,15 @@ public class PlayerInteractor : MonoBehaviour
     public float interactionDistance = 5f;
     //set the layers in the inspector
     public LayerMask interactableLayer;
-
     public IInteractable currentInteractable;
+
+    public void OnEnable() => _inputManager.OnInteracted += Interact;
+    public void OnDisable() => _inputManager.OnInteracted -= Interact;
+
+    public void Interact()
+    {
+        currentInteractable?.Interact();
+    }
 
     public void Update()
     {
@@ -21,25 +28,9 @@ public class PlayerInteractor : MonoBehaviour
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
                 interactable.InRange();
+
+
                 currentInteractable = interactable;
-
-                if (hit.collider.TryGetComponent<NPCBRO>(out var bro))
-                {
-                    bro.InRange();
-                    currentInteractable = bro;
-                }
-
-                if (hit.collider.TryGetComponent<LightPumpkin>(out var light))
-                {
-                    light.InRange();
-                    currentInteractable = light;
-                }
-
-                if (hit.collider.TryGetComponent<OpenDoor>(out var door))
-                {
-                    door.InRange();
-                    currentInteractable = door;
-                }
             }
         }
         else
