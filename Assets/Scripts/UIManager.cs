@@ -5,7 +5,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     //Canvases
-    public Canvas countCanva;
+    public Canvas countCanvas;
+
     public void Awake()
     {
         if (Instance == null && Instance == this)
