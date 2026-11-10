@@ -33,6 +33,6 @@ public class UIManager : MonoBehaviour
 
     public void ShowCountCanvas()
     {
-        countCanva.enabled = true;
+        countCanvas.enabled = true;
     }
 }
