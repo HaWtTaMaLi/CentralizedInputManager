@@ -15,9 +15,11 @@ public class OpenDoor : MonoBehaviour, IInteractable
     public Coroutine AnimationCoroutine;
     public Vector3 startRotation;
     public Vector3 forward;
+    public Outline outline;
+
     //
-    [SerializeField] private bool isEnabled = false;
-    public bool CanInteract() => isEnabled; 
+    [SerializeField] private bool canInteract = false;
+    public bool CanInteract() => canInteract; 
     //
     [SerializeField] private InputManager _inputManager;
     public void OnEnable() => _inputManager.OnInteracted += Interact;
@@ -130,14 +132,16 @@ public class OpenDoor : MonoBehaviour, IInteractable
     public void InRange()
     {
         //can use to set up automatic doors
-        isEnabled = true;
+        outline.enabled = true;
+        canInteract = true;
         Interactable.Instance.InRange();
         //Debug.Log("In Range " + CanInteract);
     }
     public void OutofRange()
     {
 
-        isEnabled = false;
+        outline.enabled = false;
+        canInteract = false;
         Interactable.Instance.OutofRange();
 
         //Debug.Log("Out Of Range " + CanInteract);

@@ -4,8 +4,10 @@ public class NPCBRO : MonoBehaviour, IInteractable
 {
     //
     [SerializeField] private InputManager _inputManager;
-    [SerializeField] private bool isEnabled = false;
-    public bool CanInteract() => isEnabled;
+    [SerializeField] private bool canInteract = false;
+    public Outline outline;
+
+    public bool CanInteract() => canInteract;
 
     public void OnEnable() => _inputManager.OnInteracted += Interact;
     public void OnDisable() => _inputManager.OnInteracted -= Interact;
@@ -29,11 +31,15 @@ public class NPCBRO : MonoBehaviour, IInteractable
 
     public void InRange()
     {
-        isEnabled = true;
+        outline.enabled = true;
+        canInteract = true;
+        Interactable.Instance.InRange();
     }
     public void OutofRange()
     {
-        isEnabled = false;
+        outline.enabled = false;
+        canInteract = false;
+        Interactable.Instance.OutofRange();
     }
 
 }

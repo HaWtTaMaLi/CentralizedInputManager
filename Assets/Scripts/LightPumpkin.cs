@@ -4,13 +4,41 @@ public class LightPumpkin : MonoBehaviour, IInteractable
 {
     //
     [SerializeField] private InputManager _inputManager;
-    [SerializeField] private bool isEnabled = false;
-    public bool CanInteract() => isEnabled;
+    [SerializeField] private bool canInteract = false;
+    public Outline outline;
 
+    //
+    public bool CanInteract() => canInteract;
+    //
+    public GameObject lightComponent;
+    public bool isOn = false;
+    //
+    public void OnEnable() => _inputManager.OnInteracted += Interact;
+    public void OnDisable() => _inputManager.OnInteracted -= Interact;
+
+    public void LightOn()
+    {
+        isOn = true;
+        lightComponent.SetActive(true);
+    }
+
+    public void LightOff()
+    {
+        isOn = false;
+        lightComponent.SetActive(false);
+    }
 
     public void TogglePumpkinLight()
     {
         Debug.Log("Light Toggled");
+        if(isOn)
+        {
+            LightOff();
+        }
+        else
+        {
+            LightOn();
+        }
     }
 
     public void Interact()
@@ -27,10 +55,14 @@ public class LightPumpkin : MonoBehaviour, IInteractable
 
     public void InRange()
     {
-        isEnabled = true;
+        outline.enabled = true;
+        canInteract = true;
+        Interactable.Instance.InRange();
     }
     public void OutofRange()
     {
-        isEnabled = false;
+        outline.enabled = false;
+        canInteract = false;
+        Interactable.Instance.OutofRange();
     }
 }

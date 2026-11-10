@@ -24,20 +24,19 @@ public class PlayerInteractor : MonoBehaviour
                 currentInteractable = interactable;
             }
 
-            //check if the hit object has an OpenDoor componenet
+            if (hit.collider.TryGetComponent<NPCBRO>(out var bro))
+            {
+                bro.InRange();
+                currentInteractable = bro;
+            }
+
             if (hit.collider.TryGetComponent<OpenDoor>(out var door))
             {
                 door.InRange();
                 currentInteractable = door;
             }
-            //
-            else if (hit.collider.TryGetComponent<NPCBRO>(out var bro))
-            {
-                bro.InRange();
-                currentInteractable = bro;
-            }
-            //
-            else if (hit.collider.TryGetComponent<LightPumpkin>(out var light))
+
+            if (hit.collider.TryGetComponent<LightPumpkin>(out var light))
             {
                 light.InRange();
                 currentInteractable = light;

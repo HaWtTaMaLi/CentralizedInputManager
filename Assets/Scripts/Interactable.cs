@@ -14,14 +14,13 @@ public class Interactable : MonoBehaviour, IInteractable
     public static Interactable Instance;
     //
     [SerializeField] private string displayName = "Interact";
-    [SerializeField] private UnityEvent onInteract;
-    private Outline outline;
+    public Outline outline;
 
     //
     public string DisplayName => displayName;
 
-    public bool CanInteract() => isEnabled;
-    [SerializeField] private bool isEnabled = false;
+    public bool CanInteract() => inRange;
+    [SerializeField] private bool inRange = false;
 
     //
     public void Awake()
@@ -52,14 +51,14 @@ public class Interactable : MonoBehaviour, IInteractable
     public void InRange()
     {
         //show interact text, UIManager
-        isEnabled = true;
         outline.enabled = true;
+        inRange = true;
     }
 
     public void OutofRange()
     {
         //hide interact text, UIManager
-        isEnabled = false;
         outline.enabled = false;
+        inRange = false;
     }
 }
