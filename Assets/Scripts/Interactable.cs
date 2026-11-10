@@ -51,6 +51,7 @@ public class Interactable : MonoBehaviour, IInteractable
     public void InRange()
     {
         //show interact text, UIManager
+        //Debug.Log("InRange = " + inRange);
         outline.enabled = true;
         inRange = true;
     }
@@ -58,6 +59,7 @@ public class Interactable : MonoBehaviour, IInteractable
     public void OutofRange()
     {
         //hide interact text, UIManager
+        //Debug.Log("InRange = " + inRange);
         outline.enabled = false;
         inRange = false;
     }

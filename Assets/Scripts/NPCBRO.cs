@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class NPCBRO : MonoBehaviour, IInteractable
 {
+    public GameObject npcbro;
     //
     [SerializeField] private InputManager _inputManager;
     [SerializeField] private bool canInteract = false;
@@ -15,6 +16,11 @@ public class NPCBRO : MonoBehaviour, IInteractable
     public void InteractWithNPCBro()
     {
         Debug.Log("Interacted with NPC Bro");
+        if (canInteract)
+        {
+            Destroy(npcbro);
+            //+1 UI + text?
+        }
     }
 
     public void Interact()
@@ -25,21 +31,24 @@ public class NPCBRO : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.Log("not in range.");
+            Debug.Log("Can't Interact");
         }
     }
 
     public void InRange()
     {
-        outline.enabled = true;
+        Debug.Log("Can Interact with Bro = " + canInteract);
+        //outline.enabled = true;
         canInteract = true;
-        Interactable.Instance.InRange();
+        //Interactable.Instance.InRange();
     }
     public void OutofRange()
     {
-        outline.enabled = false;
+        Debug.Log("Can Interact  with bro = " + canInteract);
+
+        //outline.enabled = false;
         canInteract = false;
-        Interactable.Instance.OutofRange();
+        //Interactable.Instance.OutofRange();
     }
 
 }

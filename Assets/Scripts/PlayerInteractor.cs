@@ -22,24 +22,24 @@ public class PlayerInteractor : MonoBehaviour
             {
                 interactable.InRange();
                 currentInteractable = interactable;
-            }
 
-            if (hit.collider.TryGetComponent<NPCBRO>(out var bro))
-            {
-                bro.InRange();
-                currentInteractable = bro;
-            }
+                if (hit.collider.TryGetComponent<NPCBRO>(out var bro))
+                {
+                    bro.InRange();
+                    currentInteractable = bro;
+                }
 
-            if (hit.collider.TryGetComponent<OpenDoor>(out var door))
-            {
-                door.InRange();
-                currentInteractable = door;
-            }
+                if (hit.collider.TryGetComponent<LightPumpkin>(out var light))
+                {
+                    light.InRange();
+                    currentInteractable = light;
+                }
 
-            if (hit.collider.TryGetComponent<LightPumpkin>(out var light))
-            {
-                light.InRange();
-                currentInteractable = light;
+                if (hit.collider.TryGetComponent<OpenDoor>(out var door))
+                {
+                    door.InRange();
+                    currentInteractable = door;
+                }
             }
         }
         else

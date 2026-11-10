@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OpenDoor : MonoBehaviour, IInteractable
 {
@@ -19,7 +18,7 @@ public class OpenDoor : MonoBehaviour, IInteractable
 
     //
     [SerializeField] private bool canInteract = false;
-    public bool CanInteract() => canInteract; 
+    public bool CanInteract() => canInteract;
     //
     [SerializeField] private InputManager _inputManager;
     public void OnEnable() => _inputManager.OnInteracted += Interact;
@@ -125,25 +124,19 @@ public class OpenDoor : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.Log("not in range.");
+            Debug.Log("Can't Interact");
         }
     }
 
     public void InRange()
     {
-        //can use to set up automatic doors
-        outline.enabled = true;
+        Debug.Log("Can Interact with door = " + canInteract);
         canInteract = true;
-        Interactable.Instance.InRange();
-        //Debug.Log("In Range " + CanInteract);
     }
     public void OutofRange()
     {
 
-        outline.enabled = false;
+        Debug.Log("Can Interact with door = " + canInteract);
         canInteract = false;
-        Interactable.Instance.OutofRange();
-
-        //Debug.Log("Out Of Range " + CanInteract);
     }
 }

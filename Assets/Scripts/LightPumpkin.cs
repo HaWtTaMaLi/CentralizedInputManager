@@ -30,7 +30,7 @@ public class LightPumpkin : MonoBehaviour, IInteractable
 
     public void TogglePumpkinLight()
     {
-        Debug.Log("Light Toggled");
+        //Debug.Log("Light Toggled");
         if(isOn)
         {
             LightOff();
@@ -49,20 +49,23 @@ public class LightPumpkin : MonoBehaviour, IInteractable
         }
         else
         {
-            Debug.Log("not in range.");
+            Debug.Log("Can't Interact");
         }
     }
 
     public void InRange()
     {
-        outline.enabled = true;
+        Debug.Log("Can Interact with pumpkin = " + canInteract);
+        //outline.enabled = true;
         canInteract = true;
-        Interactable.Instance.InRange();
+        //Interactable.Instance.InRange();
     }
     public void OutofRange()
     {
-        outline.enabled = false;
+        Debug.Log("Can Interact with pumpkin = " + canInteract);
+
+        //outline.enabled = false;
         canInteract = false;
-        Interactable.Instance.OutofRange();
+        //Interactable.Instance.OutofRange();
     }
 }
