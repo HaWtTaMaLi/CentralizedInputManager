@@ -32,7 +32,7 @@ public class NPCBRO : MonoBehaviour, IInteractable
             isBro = false;
             broCount++;
             broCountText.text = broCount.ToString();
-            UIManager.Instance.countCanva.enabled = true;
+            UIManager.Instance.ShowCountCanvas();
             npcbro.SetActive(false);
         }
         else
